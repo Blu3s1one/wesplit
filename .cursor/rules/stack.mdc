@@ -1,0 +1,36 @@
+---
+alwaysApply: true
+---
+
+
+## 📦 Packages to use in the project
+
+### Routing
+- [`@tanstack/react-router`](https://tanstack.com/router) → application routing
+
+### Styling & UI
+- [`tailwindcss`](https://tailwindcss.com/) → utility-first CSS framework  
+- [`shadcn/ui`](https://ui.shadcn.com/) → prebuilt UI components with Tailwind  
+- [`react-icons`](https://react-icons.github.io/react-icons/) → icon library  
+
+### Forms
+- [`@react-hook-form`](https://react-hook-form.com/) → form state management & validation
+
+### Charts & Data Visualization
+- [`react-charts`](https://react-charts.tanstack.com/) → charting & visualizations
+
+### Tables
+- [`@tanstack/table`](https://tanstack.com/table/latest) → charting & visualizations
+
+### Validation
+- [`zod`](https://zod.dev/) -> TypeScript-first schema validation with static type inference
+
+### Local DB
+- [`indexedDB`](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) -> low-level API for client-side storage 
+- [`Dexie.js`](https://dexie.org/) -> A Minimalistic Wrapper for IndexedDB
+
+### Package manager
+- npm
+
+### Draggable components
+- [`dndkit](https://dndkit.com/)

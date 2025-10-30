@@ -1,0 +1,167 @@
+---
+alwaysApply: true
+---
+
+---
+
+# 🧩 Distribution Algorithm
+
+This document describes the specifications for implementing a **group distribution algorithm** that assigns elements into groups while respecting **mandatory** and **non-mandatory** constraints, and minimizes a **global penalty score**.
+
+---
+
+## 🔍 Overview
+
+The algorithm aims to:
+
+1. Distribute elements into groups while satisfying **mandatory (hard)** constraints.
+2. Minimize the penalty from **non-mandatory (soft)** constraints.
+3. Optionally perform **swaps** to further optimize the overall distribution.
+
+---
+
+## ⚙️ Core Concepts
+
+### Elements
+
+Each element can have multiple **attributes** (e.g., gender, preferences, exclusions, etc.).
+
+### Attributes
+
+Each attribute includes:
+
+* A **type** (e.g., divergence, exclusion, inclusion).
+* An **importance** value between `0` and `1`.
+* A flag indicating whether it is **mandatory** or **nonMandatory**.
+
+### Groups
+
+Groups contain subsets of elements.
+The algorithm tries to organize these groups while minimizing the **global penalty**.
+
+---
+
+## 🧮 Functions to Implement
+
+### 1. `calculateGlobalPenalty(groups, elementAttributes, attributeParams)`
+
+**Purpose:**
+Calculate the **global penalty score** for a given element distribution.
+
+**Inputs:**
+
+* `groups`: list of groups with their assigned elements
+* `elementAttributes`: mapping of each element to its attributes
+* `attributeParams`: parameters for each attribute (importance, mandatory flag, divergence target, etc.)
+
+**Behavior:**
+
+* Only **non-mandatory** attributes are considered.
+* The **global penalty** is the weighted sum of each attribute’s penalty, according to its importance.
+
+#### Attribute Penalty Rules
+
+* **Attributes with divergence:**
+  Penalty = difference between target divergence and actual divergence (normalized between 0 and 1).
+
+* **Attributes without divergence:**
+  Penalty is based on the number of **intruders** (elements violating constraints), normalized by the total number of elements that have this attribute.
+
+**Examples:**
+
+* Example 1: Gender constraint violated (2 boys and 7 girls) → 2 intruders
+  → penalty = `2 / totalElementsWithGender`
+* Example 2: Two elements forbidden to be together are in the same group
+  → penalty = `2 / totalElementsWithThatAttribute`
+* Example 3: Three elements required to be together, but split (2 + 1)
+  → penalty = `1 / 3`
+
+---
+
+### 2. `generateInitialWithMandatoryConstraints(elements, attributeParams, numGroups, maxAttempts)`
+
+**Purpose:**
+Generate an initial distribution that satisfies **mandatory** constraints.
+
+**Process:**
+
+1. Split elements into:
+
+   * Elements with **mandatory constraints**
+   * Elements with **non-mandatory constraints**
+2. Verify that mandatory constraints are compatible with the number of groups.
+
+   * If impossible, return or raise a dedicated error.
+3. Place mandatory elements randomly while respecting all hard constraints.
+
+   * If placement fails, reset all groups and restart.
+   * If `maxAttempts` is reached, return or raise a dedicated error.
+4. Return:
+
+   * Partially filled groups
+   * Remaining elements (non-mandatory)
+
+---
+
+### 3. `generateInitialWithoutMandatoryConstraints(nonMandatoryElements, attributeParams, groups)`
+
+**Purpose:**
+Fill remaining group slots with non-mandatory elements to minimize the **global penalty**.
+
+**Process:**
+
+* For each non-mandatory element:
+
+  * Try adding it to each group.
+  * Compute the resulting global penalty.
+  * Place it in the group that yields the lowest penalty.
+* Return the fully completed groups.
+
+---
+
+### 4. `performSwaps(groups, elementAttributes, attributeParams, numSwaps)`
+
+**Purpose:**
+Optimize the distribution by swapping elements to reduce the global penalty.
+
+**Process:**
+
+1. Randomly select two elements without mandatory constraints.
+2. Swap their groups.
+3. Recalculate the global penalty.
+4. Keep the swap only if the penalty decreases.
+5. Repeat up to `numSwaps` times.
+
+---
+
+## 🔁 Algorithm Phases
+
+| Phase         | Description                                              |
+| ------------- | -------------------------------------------------------- |
+| **Phase 0.1** | Generate initial distribution with mandatory constraints |
+| **Phase 0.2** | Complete distribution with non-mandatory constraints     |
+| **Phase 1**   | Perform swaps to minimize the global penalty             |
+
+---
+
+## 🧪 Testing Guidelines
+
+Test cases should include:
+
+* **Impossible mandatory constraints** → returns or raises a dedicated error
+* **Perfectly satisfied constraints** → penalty = 0
+* **Exclusion or inclusion violations** → penalty > 0
+* **Swap improvements** → penalty decreases after swaps
+
+---
+
+## ✅ Expected Output
+
+At the end of the process:
+
+* Every element is assigned to exactly one group.
+* All **mandatory constraints** are respected.
+* The **global penalty** is minimized.
+* Optionally, a per-attribute penalty breakdown can be returned.
+
+---

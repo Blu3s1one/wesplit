@@ -1,0 +1,23 @@
+# Dependencies
+node_modules
+package-lock.json
+
+# Build outputs
+dist
+build
+coverage
+
+# IDE
+.cursor
+.vscode
+.idea
+
+# Misc
+*.log
+.DS_Store
+*.min.js
+*.min.css
+
+# Generated files
+routeTree.gen.ts
+

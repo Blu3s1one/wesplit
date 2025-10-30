@@ -1,0 +1,38 @@
+---
+alwaysApply: true
+---
+# Split
+
+This project is an **offline-first PWA** designed to help users create sessions, add elements with custom attributes, and distribute those elements into groups based on constraints.
+
+### Core Features
+- **Session Management**
+  - Create, edit, and delete sessions
+  - Store session data locally using IndexedDB (Dexie.js)
+
+- **Element & Attribute Management**
+  - Add elements (e.g., students, participants) to sessions
+  - Define custom attributes (enum or numeric, optional or required)
+  - Assign attributes to each element
+
+- **Group Distribution**
+  - Randomly distribute elements into a defined number of groups
+  - Apply constraints to balance groups by:
+    - Enum attributes (e.g., gender balance)
+    - Numeric attributes (e.g., average score balance)
+  - Allow manual adjustments via drag & drop
+
+- **Visualization & Export**
+  - Display group composition in a clean UI
+  - Visualize distributions with charts
+  - Export results to CSV or PDF
+
+- **PWA Capabilities**
+  - Fully offline-capable with service worker
+  - Add to Home Screen support
+  - Persistent storage using IndexedDB
+
+### Example Use Case
+A teacher can create a session for a class, add students as elements, assign gender and average grades as attributes, and generate 6 balanced groups where:
+- Gender distribution is uniform
+- Group averages are evenly balanced
