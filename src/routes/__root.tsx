@@ -1,12 +1,27 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router';
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
-import { TanStackDevtools } from '@tanstack/react-devtools';
-import { Suspense } from 'react';
+import { Suspense, lazy } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { ThemeProvider } from '../contexts/ThemeContext';
 import { Toaster } from '../components/ui/sonner';
 import { PWAUpdatePrompt } from '../components/PWAUpdatePrompt';
 import i18n from '../i18n/config';
+
+// Lazy load devtools only in development
+const TanStackDevtools = import.meta.env.DEV
+  ? lazy(() =>
+      import('@tanstack/react-devtools').then((res) => ({
+        default: res.TanStackDevtools,
+      }))
+    )
+  : () => null;
+
+const TanStackRouterDevtoolsPanel = import.meta.env.DEV
+  ? lazy(() =>
+      import('@tanstack/react-router-devtools').then((res) => ({
+        default: res.TanStackRouterDevtoolsPanel,
+      }))
+    )
+  : () => null;
 
 export const Route = createRootRoute({
   component: () => (
@@ -17,17 +32,19 @@ export const Route = createRootRoute({
             <Outlet />
             <Toaster />
             <PWAUpdatePrompt />
-            <TanStackDevtools
-              config={{
-                position: 'bottom-left',
-              }}
-              plugins={[
-                {
-                  name: 'Tanstack Router',
-                  render: <TanStackRouterDevtoolsPanel />,
-                },
-              ]}
-            />
+            {import.meta.env.DEV && (
+              <TanStackDevtools
+                config={{
+                  position: 'bottom-left',
+                }}
+                plugins={[
+                  {
+                    name: 'Tanstack Router',
+                    render: <TanStackRouterDevtoolsPanel />,
+                  },
+                ]}
+              />
+            )}
           </div>
         </Suspense>
       </ThemeProvider>
