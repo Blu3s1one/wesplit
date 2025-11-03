@@ -9,11 +9,20 @@ export function PWAUpdatePrompt() {
     updateServiceWorker,
   } = useRegisterSW({
     onRegistered(r) {
-      console.log('SW Registered: ' + r);
+      // Check for updates every 30 minutes
+      if (r) {
+        setInterval(
+          () => {
+            r.update();
+          },
+          30 * 60 * 1000
+        );
+      }
     },
     onRegisterError(error) {
-      console.log('SW registration error', error);
+      console.error('SW registration error', error);
     },
+    immediate: true, // Check for updates immediately
   });
 
   useEffect(() => {
@@ -27,23 +36,14 @@ export function PWAUpdatePrompt() {
 
   useEffect(() => {
     if (needRefresh) {
-      toast('New version available!', {
-        description: 'Click to update and reload the app',
-        duration: Infinity,
-        action: {
-          label: 'Update',
-          onClick: () => {
-            updateServiceWorker(true);
-            setNeedRefresh(false);
-          },
-        },
-        cancel: {
-          label: 'Later',
-          onClick: () => {
-            setNeedRefresh(false);
-          },
-        },
+      // Show brief toast then auto-update
+      toast.info('Updating to latest version...', {
+        duration: 2000,
       });
+
+      // Automatically update and reload
+      updateServiceWorker(true);
+      setNeedRefresh(false);
     }
   }, [needRefresh, setNeedRefresh, updateServiceWorker]);
 
