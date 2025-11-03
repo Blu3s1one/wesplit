@@ -1,4 +1,4 @@
-# robots.txt for wesplit.app
+# robots.txt for wesplit.fr
 
 User-agent: *
 Allow: /
@@ -8,7 +8,7 @@ Allow: /es/
 Allow: /app
 
 # Sitemap
-Sitemap: https://wesplit.app/sitemap.xml
+Sitemap: https://wesplit.fr/sitemap.xml
 
 # Crawl delay (optional, adjust if needed)
 Crawl-delay: 1

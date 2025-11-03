@@ -19,7 +19,8 @@
     "no": "Nein",
     "na": "N/A",
     "optional": "Optional",
-    "saving": "Wird gespeichert..."
+    "saving": "Wird gespeichert...",
+    "backToHome": "Zurück zur Startseite"
   },
   "sessions": {
     "title": "Sitzungen",
@@ -269,6 +270,7 @@
     "settings": "Einstellungen"
   },
   "errors": {
+    "pageNotFound": "Seite nicht gefunden",
     "genericError": "Ein Fehler ist aufgetreten",
     "loadingError": "Fehler beim Laden der Daten",
     "savingError": "Fehler beim Speichern der Daten",

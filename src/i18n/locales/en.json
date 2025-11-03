@@ -24,7 +24,8 @@
     "name": "Name",
     "actions": "Actions",
     "required": "Required",
-    "backToSession": "Back to Session"
+    "backToSession": "Back to Session",
+    "backToHome": "Back to Home"
   },
   "sessions": {
     "title": "Sessions",
@@ -261,6 +262,7 @@
     "settings": "Settings"
   },
   "errors": {
+    "pageNotFound": "Page not found",
     "genericError": "An error occurred",
     "loadingError": "Failed to load data",
     "savingError": "Failed to save data",

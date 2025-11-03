@@ -131,7 +131,7 @@ function SessionsListPage() {
             </div>
             <h3 className="text-xl font-semibold mb-2">{t('sessions.noSessions')}</h3>
             <p className="text-gray-600 mb-6">{t('sessions.noSessionsDescription')}</p>
-            <div className="flex gap-3 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button onClick={handleCreateDemo} variant="outline" disabled={creatingDemo}>
                 <GraduationCap className="mr-2 h-4 w-4" />
                 {creatingDemo ? t('sessions.creating') : t('sessions.tryDemoSession')}

@@ -19,7 +19,8 @@
     "no": "Non",
     "na": "N/A",
     "optional": "Optionnel",
-    "saving": "Enregistrement..."
+    "saving": "Enregistrement...",
+    "backToHome": "Retour à l'accueil"
   },
   "sessions": {
     "title": "Sessions",
@@ -269,6 +270,7 @@
     "settings": "Paramètres"
   },
   "errors": {
+    "pageNotFound": "Page introuvable",
     "genericError": "Une erreur s'est produite",
     "loadingError": "Échec du chargement des données",
     "savingError": "Échec de l'enregistrement des données",

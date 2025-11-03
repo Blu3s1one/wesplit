@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "vite --port 3000",
     "start": "vite --port 3000",
-    "build": "vite build && tsc",
-    "serve": "vite preview",
+    "build": "npm run clean && vite build && tsc && npm run copy-landing",
+    "clean": "rm -rf dist",
+    "copy-landing": "cp -r landing/. dist/",
+    "serve": "npx serve dist -p 4173",
     "test": "vitest run",
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint . --fix",

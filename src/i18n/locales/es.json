@@ -19,7 +19,8 @@
     "no": "No",
     "na": "N/A",
     "optional": "Opcional",
-    "saving": "Guardando..."
+    "saving": "Guardando...",
+    "backToHome": "Volver al inicio"
   },
   "sessions": {
     "title": "Sesiones",
@@ -269,6 +270,7 @@
     "settings": "Configuración"
   },
   "errors": {
+    "pageNotFound": "Página no encontrada",
     "genericError": "Ocurrió un error",
     "loadingError": "Error al cargar los datos",
     "savingError": "Error al guardar los datos",
